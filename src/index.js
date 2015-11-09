@@ -9,7 +9,7 @@ module.exports = function unaryOpExtender(Decimal, opName, protoName) {
 
   assert(adapter.hasOwnProperty(opName), new Error('Unsupported operation'));
 
-  Decimal.prototype[protoName || opName] = function(x) {
+  Decimal.prototype[protoName || opName] = function() {
     return new Decimal(adapter.toString(adapter[opName](this.val())));
   };
 
