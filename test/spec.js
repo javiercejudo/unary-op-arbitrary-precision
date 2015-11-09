@@ -10,16 +10,18 @@ var unaryOpExtender = require('../src/');
 
 describe('plus', function() {
   it('should give the square root', function() {
-    Decimal = unaryOpExtender(Decimal, 'sqrt');
-    Decimal = unaryOpExtender(Decimal, 'sqrt', '√');
+    unaryOpExtender(Decimal, 'sqrt');
+    unaryOpExtender(Decimal, 'sqrt', '√');
 
     new Decimal('9').sqrt().toString().should.be.exactly('3');
     new Decimal('9')['√']().toString().should.be.exactly('3');
   });
 
   it('should throw when the given method does not exist', function() {
+    unaryOpExtender(Decimal, 'nonExistentMethod');
+
     (function() {
-      unaryOpExtender(Decimal, 'nonExistentMethod');
+      new Decimal('2').nonExistentMethod();
     }).should.throw('Unsupported operation');
   });
 });
